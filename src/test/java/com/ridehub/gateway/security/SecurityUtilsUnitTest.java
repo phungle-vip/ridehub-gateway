@@ -106,4 +106,15 @@ class SecurityUtilsUnitTest {
         hasCurrentUserThisAuthority = SecurityUtils.hasCurrentUserThisAuthority(AuthoritiesConstants.ADMIN).contextWrite(context).block();
         assertThat(hasCurrentUserThisAuthority).isFalse();
     }
+
+    @Test
+    void testExtractAuthorityFromGroupsAndRolesClaims() {
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("groups", List.of("/Admins", "/Users"));
+        claims.put("roles", List.of("ROLE_ADMIN", "ROLE_USER"));
+
+        assertThat(SecurityUtils.extractAuthorityFromClaims(claims))
+            .extracting(GrantedAuthority::getAuthority)
+            .containsExactlyInAnyOrder(AuthoritiesConstants.ADMIN, AuthoritiesConstants.USER);
+    }
 }
