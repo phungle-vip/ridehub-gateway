@@ -1,0 +1,3 @@
+# JHipster ignore pattern for gateway
+# Khai báo các file tùy biến tại đây để JHipster không ghi đè khi re-generate JDL.
+# Chi tiết xem tại: docs/guides/JDL_DEVELOPMENT_GUIDE.md
